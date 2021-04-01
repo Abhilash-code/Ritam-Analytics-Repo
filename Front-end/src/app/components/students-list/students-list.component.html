@@ -1,0 +1,207 @@
+<mat-form-field >
+  <mat-label>Search By Roll Number</mat-label>
+  <input
+  matInput
+  type="number"
+  (keyup)="checkSearchBAr(searchinput)"
+  placeholder="ex. 1019155535"
+  #searchinput
+  [(ngModel)] = 'roll_number'
+  >
+  <button mat-button *ngIf="roll_number!=''" matSuffix
+  mat-icon-button aria-label="Clear"
+  (click)="searchinput.value=''; checkSearchBAr(searchinput)">
+    <mat-icon>close</mat-icon></button>
+
+</mat-form-field>
+<button class='search-button'
+mat-raised-button
+color="primary"
+(click)='filterDataByRollNumber(searchinput)'
+[disabled]= "searchinput.value==''">Search</button>
+&nbsp; &nbsp;
+<button mat-flat-button color="warn" (click)="exportexcel()">Download Excel
+      <mat-icon> file_download</mat-icon>
+  </button>
+
+  <ng-template #table>
+<table  id="excel-table" mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="serial_number">
+    <th mat-header-cell *matHeaderCellDef>S.No. </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="roll_number">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Roll Number </th>
+    <td mat-cell *matCellDef="let element"> {{element.roll_number}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="father_name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Father Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.father_name}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="image">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Image </th>
+    <td mat-cell *matCellDef="let element">
+      <img src = "{{element.image}}"
+       alt="{{element.image}}"
+       class="photo_size">
+      <span style="position: fixed; visibility: hidden">{{element.image}}</span>
+      </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="finger_print">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Finger Print </th>
+    <td mat-cell *matCellDef="let element"><img src = "{{element.finger_print}}"
+      alt="{{element.finger_print}}"
+      class="photo_size">
+      <span style="position: fixed; visibility: hidden">{{element.finger_print}}</span>
+    </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="date_stamp">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Stamp </th>
+    <td mat-cell *matCellDef="let element"> {{element.date_stamp | date : 'dd/MM/yy, h:mm:ss a'}} </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+  <!-- Row shown when there is no matching data. -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No data matching the filter "{{searchinput.value}}"</td>
+  </tr>
+
+
+
+
+
+</table>
+</ng-template>
+
+<mat-paginator
+    [pageSizeOptions]="[5, 10, 15, 20, 30]"
+    showFirstLastButtons
+    (page)="pageChanged($event)">
+  </mat-paginator>
+  <div *ngIf="loading;else table">
+    <mat-spinner class="center"></mat-spinner>
+  </div>
+
+
+
+
+<!-- <div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by Roll Number"
+        [(ngModel)]="roll_number"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="filterDataByRollNumber()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      [responsive]="true"
+      (pageChange)="handlePageChange($event)"
+    ></pagination-controls>
+  </div>
+
+  <div class="col-md-6">
+    <h4>Student List</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let student of students_data |paginate : {
+          itemsPerPage: pageSize,
+          currentPage: page,
+          totalItems: count
+        }; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveStudentsData(student, i)"
+      >
+        {{ student.name }}
+      </li>
+    </ul>
+
+    <button class="m-3 btn btn-sm btn-danger">
+      Temp Button
+    </button>
+
+    Students per Page:
+    <select (change)="handlePageSizeChange($event)">
+      <option *ngFor="let size of page_Options" [ngValue]="size">
+        {{ size }}
+      </option>
+    </select>
+
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentStudent">
+      <h4>Students Data</h4>
+      <div>
+        <label><strong>Name:</strong></label> {{ currentStudent.name }}
+      </div>
+      <div>
+        <label><strong>FatherName:</strong></label>
+        {{ currentStudent.father_name }}
+      </div>
+      <div>
+        <label><strong>Image:</strong></label>
+        {{ currentStudent.image }}
+      </div>
+
+      <div>
+        <label><strong>Finger Print:</strong></label>
+        {{ currentStudent.finger_print }}
+      </div>
+
+      <div>
+        <label><strong>Date Stamp:</strong></label>
+        {{ currentStudent.date_stamp }}
+      </div>
+
+      <a class="badge badge-warning" routerLink="/StudentDetails/{{ currentStudent.id }}">
+        Edit
+      </a>
+    </div>
+
+    <div *ngIf="!currentStudent">
+      <br />
+      <p>Please click on a Student....</p>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,24 @@
+<mat-toolbar color="warn">
+  <mat-toolbar-row>
+    <img src="../assets/images/logo.png" alt="logo" class="img-fluid logo-image" routerLink="uploadfile" />
+    <!-- <button mat-flat-button color="warn" routerLink="StudentList" class="student-list-btn">Student List
+      <mat-icon>list</mat-icon>
+    </button> -->
+    <button mat-flat-button color="warn" routerLink="uploadfile">Upload File
+      <mat-icon> file_upload</mat-icon>
+    </button>
+
+    <button mat-flat-button color="warn" routerLink="fileList">File List
+      <mat-icon>list</mat-icon>
+    </button>
+    <div class="exampleflex">
+
+    </div>
+    <button mat-flat-button color="warn" (click)="logout()">Logout
+      <mat-icon>logout</mat-icon>
+    </button>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container mt-3"><router-outlet></router-outlet></div>

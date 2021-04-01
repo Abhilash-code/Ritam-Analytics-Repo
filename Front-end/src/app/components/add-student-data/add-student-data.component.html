@@ -1,0 +1,49 @@
+<div>
+  <div class="submitForm">
+    <div *ngIf = "!submitted">
+      <div class="form-group">
+        <label for="rollnumber">Roll Number</label>
+        <input type="number" name="rollnumber" id="rollnumber" class="form-control" [(ngModel)] = "studentData.roll_number">
+      </div>
+
+      <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" name="Name" id="Name" class="form-control" [(ngModel)] = "studentData.name">
+      </div>
+
+      <div class="form-group">
+        <label for="fathername">Father Name</label>
+        <input type="text" name="fathername" id="fathername" class="form-control" [(ngModel)] = "studentData.father_name">
+      </div>
+
+
+      <div class="form-group">
+        <label for="image">Image</label>
+        <input type="text" name="image" id="image" class="form-control" [(ngModel)] = "studentData.image">
+      </div>
+
+
+      <div class="form-group">
+        <label for="fingerprint">Fingerprint</label>
+        <input type="text" name="fingerprint" id="fingerprint" class="form-control" [(ngModel)] = "studentData.finger_print">
+      </div>
+
+
+      <div class="form-group">
+        <label for="datastamp">Date Stamp</label>
+        <input type="text" name="datastamp" id="datastamp" class="form-control" [(ngModel)] = "studentData.date_stamp">
+      </div>
+
+      <button type="button" class="btn btn-primary" (click)="addStudent()">Submit</button>
+
+
+
+    </div>
+
+    <div *ngIf = "submitted">
+      <p>Student Data was submitted successfully!</p>
+      <button type="button" class="btn btn-success" (click)="newStudentData()">Add</button>
+    </div>
+
+  </div>
+</div>

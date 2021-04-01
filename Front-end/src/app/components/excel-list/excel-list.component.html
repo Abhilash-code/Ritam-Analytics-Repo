@@ -1,0 +1,49 @@
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput
+  [(ngModel)]="searchText"
+  placeholder="Ex. test.xlsx" #input>
+</mat-form-field>
+
+<div class="card mt-3" *ngIf="(excelList | filter: searchText).length > 0; else noResults">
+  <div class="card-header" style="color: white; background: #f44336;">Uploaded Excels</div>
+
+
+  <mat-nav-list class="list-group list-group-flush">
+    <mat-list-item
+    class="list-group-item"
+    *ngFor="let excel of excelInfos | async | filter: searchText">
+      <!-- <a matLine href="{{ 'http://65.1.191.3/excelapi/getInfo/'+ excel.name }}">{{ excel.name }}</a>
+      <a  href="{{ 'http://65.1.191.3/excelapi/getInfo/'+ excel.name }}"> -->
+
+
+        <a matLine href="{{ excel.url }}">{{ excel.name }}</a>
+      <a  href="{{ excel.url }}">
+
+        <button color="warn" mat-icon-button>
+          <mat-icon>file_download</mat-icon>
+        </button>
+      </a>
+    </mat-list-item>
+  </mat-nav-list>
+
+
+
+  <!-- <ul
+    class="list-group list-group-flush"
+    *ngFor="let excel of excelInfos | async | filter: searchText"
+  >
+    <li class="list-group-item">
+      <button mat-flat-button>
+        <a href="{{ excel.url }}">Download Excel</a>
+      </button>
+
+      {{ excel.name }}
+
+    </li>
+  </ul> -->
+
+</div>
+<ng-template #noResults>
+  <p>No results found for "{{searchText}}".</p>
+</ng-template>

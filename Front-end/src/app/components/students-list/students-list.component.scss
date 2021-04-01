@@ -1,0 +1,52 @@
+.list{
+  text-align: left;
+  margin: auto;
+  max-width: 750px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.mat-row:nth-child(even){
+  background-color: white;
+}
+
+.mat-row:nth-child(odd){
+  background-color:whitesmoke;
+}
+
+table {
+  width: 100%;
+}
+
+
+.mat-form-field {
+  font-size: 14px;
+  width: 30%;
+}
+
+.search-button
+{
+  margin-left: 1rem;
+}
+.center{
+  width: 50%;
+  margin: auto;
+}
+
+.photo_size{
+  width: 90px;
+  height: 90px;
+  transition: transform .4s; /* Animation */
+}
+
+.photo_size:hover
+{
+  transform: scale(1.8);
+  border: 0.1em solid gray;
+}
