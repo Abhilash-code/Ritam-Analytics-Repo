@@ -1,16 +1,14 @@
 const express = require("express");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
 
-const Routes = require("./app/routes/studentexcel.routes")
+const db = require("./app/models");
+// const Routes = require("./app/routes/studentexcel.routes");
+const initRoutes = require("./app/routes/post.routes");
 global.__basedir = __dirname + "/";
 
-
-// db.sequelize.sync({force: true}).then(()=>{
-//     console.log("Dropping and Resynching Database")
-// });
 
 var corsOptions = {
    origin: "http://localhost:8081" 
@@ -18,21 +16,20 @@ var corsOptions = {
  
 app.use(cors(corsOptions));
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({extended: true}));
+// app.use(bodyParser.urlencoded({extended: true}));
  
 app.use(express.urlencoded({extended: true}));
-Routes(app);
+initRoutes(app);
 
-require("./app/routes/student_data.routes")(app);
+// require("./app/routes/student_data.routes")(app);
 
- const db = require("./app/models");
 
-db.sequelize.sync();
-// db.sequelize.sync({force: true}).then(()=>{
-//     console.log("Dropping and Resynching Database")
-// });
+//db.sequelize.sync();
+db.sequelize.sync({force: true}).then(()=>{
+    console.log("Dropping and Resynching Database")
+});
 
 app.get("/", (req, res)=>{
     res.json({

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class UploadExcelService {
 
- private baseUrl = 'http://localhost:8080/api/excel';
+ private baseUrl = 'http://localhost:8080/api/csv';
  //  private baseUrl = '/excelapi';
 
   constructor(private http: HttpClient) { }
