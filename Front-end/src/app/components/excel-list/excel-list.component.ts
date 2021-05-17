@@ -12,16 +12,22 @@ export class ExcelListComponent implements OnInit {
 
   constructor(private uploadService : UploadExcelService) { }
 
-  excelInfos?: Observable<any>;
+  excelInfos: any;
 
   searchText!: string;
   excelList: any = [];
 
   ngOnInit(): void {
-    this.excelInfos = this.uploadService.getExcelInfo();
-    this.excelInfos.forEach(excel=>{
-          this.excelList.push(...excel);
+    this.uploadService.getExcelInfo().subscribe(
+      (res)=>{
+        this.excelInfos = res;
+        this.excelInfos = this.excelInfos.reverse();
+        this.excelInfos.forEach((excel: any)=>{
+          this.excelList.push(excel);
       })
+      }
+    );
+
       //console.log(this.excelList)
 
   }

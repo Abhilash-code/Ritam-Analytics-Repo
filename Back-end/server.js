@@ -26,10 +26,10 @@ initRoutes(app);
 // require("./app/routes/student_data.routes")(app);
 
 
-//db.sequelize.sync();
-db.sequelize.sync({force: true}).then(()=>{
-    console.log("Dropping and Resynching Database")
-});
+db.sequelize.sync();
+// db.sequelize.sync({force: true}).then(()=>{
+//     console.log("Dropping and Resynching Database")
+// });
 
 app.get("/", (req, res)=>{
     res.json({

@@ -6,13 +6,16 @@
 </mat-form-field>
 
 <div class="card mt-3" *ngIf="(excelList | filter: searchText).length > 0; else noResults">
-  <div class="card-header" style="color: white; background: #f44336;">Uploaded Excels</div>
+  <div class="card-header" style="color: white; background: #f44336;">Uploaded Files
+
+    <span style="float: right;">Total Files: {{excelInfos.length}}</span>
+  </div>
 
 
   <mat-nav-list class="list-group list-group-flush">
     <mat-list-item
     class="list-group-item"
-    *ngFor="let excel of excelInfos | async | filter: searchText">
+    *ngFor="let excel of excelInfos | filter: searchText">
       <!-- <a matLine href="{{ 'http://65.1.191.3/excelapi/getInfo/'+ excel.name }}">{{ excel.name }}</a>
       <a  href="{{ 'http://65.1.191.3/excelapi/getInfo/'+ excel.name }}"> -->
 

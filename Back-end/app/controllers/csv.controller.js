@@ -39,6 +39,7 @@ const upload = async (req, res) => {
               });
             })
             .catch((error) => {
+              fs.unlinkSync(path)
               res.status(500).send({
                 message: "Fail to import data into database!",
                 error: error.message,
@@ -83,6 +84,7 @@ const upload = async (req, res) => {
             }
         ).catch(
             (error)=>{
+              fs.unlinkSync(path)
                 res.status(500).send({
                     message: 'Failed to upload excel!  ' + req.file.originalname,
                     error: error.message
@@ -94,6 +96,7 @@ const upload = async (req, res) => {
     }
   } catch (error) {
     //console.log(error);
+    fs.unlinkSync(path);
     res.status(500).send({
       message: "Could not upload the file: " + req.file.originalname,
     });

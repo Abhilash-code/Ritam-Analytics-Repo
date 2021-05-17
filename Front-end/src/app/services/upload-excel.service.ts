@@ -28,7 +28,7 @@ export class UploadExcelService {
     return this.http.request(req);
   }
 
-  getExcelInfo(): Observable<any> {
+  getExcelInfo() {
     return this.http.get(`${this.baseUrl}/getInfo`)
   }
 }
