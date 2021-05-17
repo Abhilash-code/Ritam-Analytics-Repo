@@ -1,29 +1,40 @@
-<mat-form-field>
-  <div>
-    <mat-toolbar>
-      <!-- Display files names -->
-      <input matInput [(ngModel)]="fileAttr" readonly name="name" />
 
-      <!-- Browse Button -->
-      <button mat-flat-button color="warn">
-        Browse File
-      </button>
 
-    </mat-toolbar>
+<div class="row">
+  <div class="col-md-8">
 
-    <!-- Fetch selected filed on change -->
-    <input type="file" #fileInput id="uploadFile"  (change)="onFileChange($event)"
-     name="uploadFile" multiple="true"
-     accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
-      application/vnd.ms-excel" />
+    <mat-form-field>
+      <div>
+        <mat-toolbar>
+          <!-- Display files names -->
+          <input matInput [(ngModel)]="fileAttr" readonly name="name" />
+
+          <!-- Browse Button -->
+          <button mat-flat-button color="warn">
+            Browse File
+          </button>
+
+        </mat-toolbar>
+
+        <!-- Fetch selected filed on change -->
+        <input type="file" #fileInput id="uploadFile"  (change)="onFileChange($event)"
+         name="uploadFile" multiple="true"
+         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+          application/vnd.ms-excel" />
+
+      </div>
+
+    </mat-form-field>
 
   </div>
+  <div class="col-md-4" style="align-self: center;">
+    <button mat-flat-button [disabled]="!selectedExcel" color="primary" (click)="upload()">
+      Upload
+    </button>
 
-</mat-form-field>
+  </div>
+</div>
 
-<button mat-flat-button [disabled]="!selectedExcel" color="primary" (click)="upload()">
-  Upload
-</button>
 
 <div *ngIf="currentFile" class="progress my-3">
  <div class="progress-bar progress-bar-striped progress-bar-animated"
