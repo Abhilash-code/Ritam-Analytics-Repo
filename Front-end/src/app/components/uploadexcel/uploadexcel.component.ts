@@ -30,7 +30,7 @@ export class UploadexcelComponent implements OnInit, AfterViewInit {
 
 
 
-
+isUploaded: boolean = false;
   selectedExcel?: FileList;
   currentFile?: File;
   progress = 0;
@@ -83,7 +83,7 @@ export class UploadexcelComponent implements OnInit, AfterViewInit {
     const target : DataTransfer =  <DataTransfer>(evt.target);
 
 
-    if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+    if (target.files.length > 1) throw new Error('Cannot use multiple files');
 
 
 
@@ -105,14 +105,15 @@ export class UploadexcelComponent implements OnInit, AfterViewInit {
           const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
           this.students_data = (XLSX.utils.sheet_to_json(ws));
-          console.log(this.students_data)
+          //console.log(this.students_data)
 
           let x = this.students_data.slice(1);
-
+          //console.log(Object.keys(x[0]))
+          this.displayedColumns = Object.keys(x[0])
           this.dataSource = new MatTableDataSource<any>(this.students_data);
 
           this.dataSource.paginator = this.paginator;
-          console.log(this.dataSource.data)
+          //console.log(this.dataSource.data)
       };
 
     reader.readAsBinaryString(target.files[0]);
@@ -128,6 +129,7 @@ export class UploadexcelComponent implements OnInit, AfterViewInit {
 
 
   upload():void {
+    this.isUploaded = false;
     this.progress = 0;
 
     if(this.selectedExcel){
@@ -144,6 +146,7 @@ export class UploadexcelComponent implements OnInit, AfterViewInit {
             } else if (event instanceof HttpResponse){
               setTimeout( () =>{this.currentFile = undefined} , 1000);
               this.message = event.body.message;
+              this.isUploaded = true;
               this.excelInfos = this.uploadService.getExcelInfo();
               setTimeout( () =>{this.message = ''} , 3000);
             }
@@ -151,6 +154,7 @@ export class UploadexcelComponent implements OnInit, AfterViewInit {
           (error: any) => {
             console.log(error);
             this.progress = 0;
+            this.isUploaded = false;
 
             if (error.error && error.error.message){
               this.message = error.error.message;
@@ -163,6 +167,7 @@ export class UploadexcelComponent implements OnInit, AfterViewInit {
         );
       }
       this.selectedExcel = undefined;
+
     }
   }
 

@@ -5,28 +5,28 @@ module.exports = app => {
 
 
 
-    var router = require("express").Router();
+    // var router = require("express").Router();
   
    
-    router.post("/", students_data.create);
+    // router.post("/", students_data.create);
 
-    router.post("/upload", upload.single('file'), excelConroller.upload);
+    // router.post("/upload", upload.single('file'), excelConroller.upload);
 
-    router.get("/getlastupload", excelConroller.getStudentsData);
+    // router.get("/getlastupload", excelConroller.getStudentsData);
  
-    router.get("/", students_data.findAll);
+    // router.get("/", students_data.findAll);
   
     
-    router.get("/:id", students_data.findOne);
+    // router.get("/:id", students_data.findOne);
   
 
-    router.put("/:id", students_data.update);
+    // router.put("/:id", students_data.update);
 
-    router.delete("/:id", students_data.delete);
+    // router.delete("/:id", students_data.delete);
   
-    router.delete("/", students_data.deleteAll);
+    // router.delete("/", students_data.deleteAll);
 
-    router.get("/allStudents", students_data.findallSaved);
+    // router.get("/allStudents", students_data.findallSaved);
   
-    app.use('/api/students_data', router);
+    // app.use('/api/students_data', router);
   }; 

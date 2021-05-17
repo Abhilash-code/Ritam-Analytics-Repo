@@ -14,6 +14,8 @@ export class AuthComponent implements OnInit {
   hide = true;
   login: FormGroup;
   isLogin:boolean=true;
+  isLoading: boolean = false;
+
   constructor(public authService: AuthService, public router: Router) {
     this.login = new FormGroup({
       email: new FormControl(null, [Validators.email, Validators.required]),
@@ -25,7 +27,12 @@ export class AuthComponent implements OnInit {
   }
 
   onlogin() {
-    this.authService.signIn(this.login.value.email, this.login.value.password);
+    this.isLoading = true;
+    this.authService.signIn(this.login.value.email, this.login.value.password)
+    .then(()=>{
+      this.isLoading = false;
+    }
+    );
   if(this.isLogin){}
   else{
 

@@ -44,9 +44,15 @@
             <!-- <div class="example-button-row">
                 <a mat-stroked-button href="https://www.google.com/" target="_blank">Forgot Password</a>
               </div> -->
-            <button class="ml-2" mat-flat-button color="warn" type="submit" (click)="onlogin()" [disabled]="!login.valid">Login
-                <mat-icon> login</mat-icon>
+              <div class="spinner-div">
+            <button class="ml-2" mat-flat-button color="warn"
+             type="submit" (click)="onlogin()"
+             [class.spinner]="isLoading"
+            [disabled]='login.invalid || isLoading'
+            >Login
+                <!-- <mat-icon> login</mat-icon> -->
             </button>
+          </div>
         </form>
 
     </mat-card>

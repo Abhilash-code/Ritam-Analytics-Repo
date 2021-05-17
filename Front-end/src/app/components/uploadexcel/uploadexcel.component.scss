@@ -41,10 +41,6 @@ table {
   background-color:whitesmoke;
 }
 
-.alert{
-  background-color: green;
-    color: white;
-}
 
 
 
@@ -58,4 +54,14 @@ table {
 {
   transform: scale(1.8);
   border: 0.1em solid gray;
+}
+
+
+.mat-header-cell, .mat-cell {
+  min-width: 120px;
+}
+
+.table-scroll{
+  overflow: scroll;
+  height: 60vh;
 }

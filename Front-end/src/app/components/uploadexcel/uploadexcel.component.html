@@ -26,92 +26,39 @@
 </button>
 
 <div *ngIf="currentFile" class="progress my-3">
-  <div
-    class="progress-bar progress-bar-info progress-bar-striped"
-    role="progressbar"
-    attr.aria-valuenow="{{ progress }}"
-    aria-valuemin="0"
-    aria-valuemax="100"
-    [ngStyle]="{ width: progress + '%' }"
-  >
-    {{ progress }}%
-  </div>
+ <div class="progress-bar progress-bar-striped progress-bar-animated"
+  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+Uploading File
+</div>
 </div>
 
-<div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
+<div *ngIf="message" [ngClass]="isUploaded? 'alert-success': 'alert-danger' " class="alert" role="alert">{{ message }}</div>
 
 
 <div [ngStyle]="{'visibility': dataSource.data.length>0? 'visible':'hidden'}">
 
-<div>
+<div class="example-container mat-elevation-z8">
 
 </div>
   <mat-paginator
   [pageSizeOptions]="[5, 10, 20]"
   showFirstLastButtons>
  </mat-paginator>
-
+<div class="table-scroll">
 <table  id="excel-table" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-<!-- *ngIf = "dataSource.data.length != 0" -->
 
-
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
-
-  <!-- Position Column -->
-  <!-- <ng-container matColumnDef="serial_number">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
-    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-  </ng-container> -->
-
-  <!-- Name Column -->
-  <ng-container matColumnDef="roll_number">
-    <th mat-header-cell *matHeaderCellDef> Roll Number </th>
-    <td mat-cell *matCellDef="let element"> {{ element.roll_number }} </td>
+  <ng-container *ngFor="let column of displayedColumns; index as i" [matColumnDef]="column">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let element"> {{ element[column] }} </td>
   </ng-container>
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="father_name">
-    <th mat-header-cell *matHeaderCellDef> Father Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.father_name}} </td>
-  </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="image">
-    <th mat-header-cell *matHeaderCellDef> Image </th>
-    <td mat-cell *matCellDef="let element"> <img src = "{{element.image}}"
-      alt="{{element.image}}"
-      class="photo_size">
-     <span style="position: fixed; visibility: hidden">{{element.image}}</span> </td>
-  </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="finger_print">
-    <th mat-header-cell *matHeaderCellDef> Finger Print </th>
-    <td mat-cell *matCellDef="let element"><img src = "{{element.finger_print}}"
-      alt="{{element.finger_print}}"
-      class="photo_size">
-      <span style="position: fixed; visibility: hidden">{{element.finger_print}}</span></td>
-  </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="date_stamp">
-    <th mat-header-cell *matHeaderCellDef> Date Stamp </th>
-    <td mat-cell *matCellDef="let element"> {{element.date_stamp | date : 'dd/MM/yy, h:mm:ss a' }} </td>
-  </ng-container>
 
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
 </table>
-
+</div>
 </div>
 
 

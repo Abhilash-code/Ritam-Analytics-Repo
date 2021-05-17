@@ -1,30 +1,26 @@
-const multer = require('multer');
+const multer = require("multer");
 
-const excelFilter = (req, file, cb)=>{
-    if(
-        file.mimetype.includes('excel') || file.mimetype.includes('spreadsheetml')
-    ){
-        cb(null, true);
-    }
-    else{
-        cb('Please upload excel file only!', false)
-    }
+const csvFilter = (req, file, cb) => {
+  if (file.mimetype.includes("csv") ||
+  file.mimetype.includes("vnd.ms-excel") ||
+  file.mimetype.includes("excel") ||
+  file.mimetype.includes("spreadsheetml")
+  ) {
+    cb(null, true);
+  } else {
+    cb(`${file.mimetype}` , false);
+  }
 };
 
-
 var storage = multer.diskStorage({
-    destination: (req, file, cb)=>{
-        cb(null, __basedir + '/resources/static/assets/uploads');
-    },
-    filename: (req, file, cb)=>{
-        
-        cb(null, `${Date.now()}-amsreport-${file.originalname}`);
-    }
+  destination: (req, file, cb) => {
+    cb(null, __basedir + "/resources/static/assets/uploads/");
+  },
+  filename: (req, file, cb) => {
+    //console.log(file.originalname);
+    cb(null, `${Date.now()}-post-${file.originalname}`);
+  },
 });
 
-var uploadFile = multer({
-    storage: storage,
-    fileFilter: excelFilter
-});
+var uploadFile = multer({ storage: storage, fileFilter: csvFilter });
 module.exports = uploadFile;
-

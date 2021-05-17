@@ -1,30 +1,49 @@
 module.exports = (sequelize, Sequelize)=>{
-    const Student_data = sequelize.define("students_data",{
-        // sno: {
-        //     type: Sequelize.INTEGER
-        // },
-        roll_number:{
+    const Student_data = sequelize.define("posts",{
+
+        Date_Text:{
+            type: Sequelize.STRING,
+        },
+        Language:{
             type: Sequelize.STRING
         },
-        name:{
+        Post_Type:{
             type: Sequelize.STRING
         },
-        father_name:{
+        Publisher:{
             type: Sequelize.STRING
         },
-        image:{
+        Title:{
             type: Sequelize.STRING
         },
-        finger_print:{
+        Category:{
+            type: Sequelize.STRING
+         },
+         Description: {
             type: Sequelize.STRING
         },
-        date_stamp:{
+        mediaType:{
             type: Sequelize.STRING
-         }
-        //,
-        // saved: {
-        //     type: Sequelize.BOOLEAN
-        // }
+        },
+        Viewes:{
+            type: Sequelize.STRING
+        },
+        Reads:{
+            type: Sequelize.STRING
+        },
+        Likes:{
+            type: Sequelize.STRING
+        },
+        Comments:{
+            type: Sequelize.STRING
+         },
+         Shares: {
+            type: Sequelize.STRING
+        },
+       
+    },
+    {
+        timestamps: false
     });
 
     return Student_data;
