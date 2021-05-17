@@ -47,14 +47,7 @@ isUploaded: boolean = false;
   fileAttr = 'Choose File';
 
 
-  displayedColumns: string[] = [
-      // 'serial_number',
-      'roll_number',
-      'name',
-      'father_name',
-      'image',
-      'finger_print',
-      'date_stamp'];
+  displayedColumns: string[] = [];
 
       dataSource = new MatTableDataSource<any>();
 

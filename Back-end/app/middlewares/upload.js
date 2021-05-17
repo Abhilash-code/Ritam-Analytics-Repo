@@ -1,4 +1,5 @@
 const multer = require("multer");
+const moment = require("moment");
 
 const csvFilter = (req, file, cb) => {
   if (file.mimetype.includes("csv") ||
@@ -12,13 +13,15 @@ const csvFilter = (req, file, cb) => {
   }
 };
 
+const timestamp = moment().format("DD-MM-YYYY-h-mm-ss-a");
+
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, __basedir + "/resources/static/assets/uploads/");
   },
   filename: (req, file, cb) => {
     //console.log(file.originalname);
-    cb(null, `${Date.now()}-post-${file.originalname}`);
+    cb(null, `${timestamp}-post-${file.originalname}`);
   },
 });
 
