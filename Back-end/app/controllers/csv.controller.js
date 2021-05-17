@@ -56,7 +56,7 @@ const upload = async (req, res) => {
         rows.shift();
         let post_data = [];
         rows.forEach((row) => {
-            console.log(row)
+            //console.log(row)
             let posts = {
               Date_Text: row[0],
               Language: row[1],
