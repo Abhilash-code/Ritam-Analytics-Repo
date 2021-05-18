@@ -41,7 +41,7 @@ const upload = async (req, res) => {
             .catch((error) => {
               fs.unlinkSync(path)
               res.status(500).send({
-                message: "Fail to import data into database!",
+                message: "Failed to import data into database!",
                 error: error.message,
               });
             });

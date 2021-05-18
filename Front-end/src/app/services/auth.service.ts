@@ -58,7 +58,13 @@ export class AuthService {
 
         this.alertSuccess();
       }).catch((error) => {
-        this.alertError();
+        console.log(error.message)
+        if(error.message.indexOf('network error') != -1){
+          this.alertNetworkError();
+        }
+        else{
+          this.alertError();
+        }
       })
   }
 
@@ -86,7 +92,15 @@ alertError(){
 }
 
 
-
+alertNetworkError(){
+  this.Toast.fire({
+    icon: 'error',
+    title: 'A network error has occured.',
+    position: 'top',
+    // showCloseButton: true
+    timer: 2000
+  })
+}
 
 
 
